@@ -4,9 +4,7 @@ const createUser = async (body) => {
   const itExists = await userModel.checkEmail(body);
   
   if (itExists) {
- return { 
-  status: 409,
-}; 
+ return 'Email already registered';
 }
   return userModel.createUser(body);
 };
