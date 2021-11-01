@@ -17,6 +17,18 @@ const createUser = async ({ name, email, password }) => {
 };
 };
 
+const checkEmail = async ({ email }) => {
+  const userCollection = await mongoConnection.getConnection()
+    .then((db) => db.collection('users'));
+
+    const user = await userCollection
+    .findOne({ email });
+
+    return user;
+};
+
+
+
 module.exports = {
   checkEmail,
   createUser,
