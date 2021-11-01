@@ -1,6 +1,7 @@
 const express = require('express');
 
-const userRoute = require('./src/routes/userRoute')
+const userRoute = require('./src/routes/userRoute');
+const loginRoute = require('./src/routes/loginRoute');
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 const PORT = 3001;
 
 app.use('/users', userRoute);
+app.use('/login', loginRoute);
 
 app.listen(PORT, () => console.log(`conectado na porta ${PORT}`));
 

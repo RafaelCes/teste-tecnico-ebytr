@@ -1,4 +1,5 @@
 const joi = require('joi');
+require('dotenv').config();
 
 const loginService = require('../services/loginService');
 
