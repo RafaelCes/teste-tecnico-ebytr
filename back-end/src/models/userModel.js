@@ -27,7 +27,15 @@ const checkEmail = async ({ email }) => {
     return user;
 };
 
+const readUser = async ({ email, password }) => {
+  const userCollection = await mongoConnection.getConnection()
+    .then((db) => db.collection('users'));
 
+    const user = await userCollection
+    .findOne({ email, password });
+
+    return user;
+};
 
 module.exports = {
   checkEmail,
