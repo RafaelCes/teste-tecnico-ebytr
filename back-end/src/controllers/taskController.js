@@ -11,7 +11,7 @@ const validateRequest = (body) => {
   return error;
 };
 
-const createTask = async (req,res,next) => {
+const createTask = async (req, res, next) => {
   const { body } = req;
   const { userID } = req.user;
 
@@ -19,18 +19,18 @@ const createTask = async (req,res,next) => {
 
   if (error) return next('Invalid entries. Try again.');
 
-  const response = await taskService.createTask(body, userID)
+  const response = await taskService.createTask(body, userID);
 
   res.status(201).json(response);
 };
 
-const getAllTasksByUser = async (req, res, next) => {
+const getAllTasksByUser = async (req, res) => {
   const { userID } = req.user;
 
   const response = await taskService.getAllTasksByUser(userID);
 
   res.status(200).json(response);
-}
+};
 
 module.exports = {
   createTask,

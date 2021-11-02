@@ -14,10 +14,7 @@ const { JWT_SECRET } = process.env;
     req.user = payload;
 
     return next();
-
   } catch (err) {
-
     return next('jwt malformed');
-    
   }
  };
