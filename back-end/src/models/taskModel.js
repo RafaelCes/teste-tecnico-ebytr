@@ -52,6 +52,16 @@ const updateTask = async (id, { title, description, status }) => {
     description,
     status,
   }
+};
+
+const deleteTask = async (id) => {
+  const taskCollection = await mongoConnection.getConnection()
+  .then((db) => db.collection('users'));
+
+  await taskCollection
+  .deleteOne({_id: ObjectId(id)});
+
+  return;
 }
 
 module.exports = {
@@ -59,4 +69,5 @@ module.exports = {
   getAllTasksByUser,
   getTaskById,
   updateTask,
+  deleteTask,
 };
