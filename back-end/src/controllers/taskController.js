@@ -48,8 +48,21 @@ const updateTask = async (req, res, next) => {
   res.status(200).json(response);
 };
 
+const deleteTask = async (req, res, next) => {
+  const { id } = req.params;
+  const { userID } = req.user;
+
+  const response = await taskService.deleteTask(id, body, userID);
+
+  if(typeof response === 'string') return next(response)
+
+  res.status(204).json(response);
+
+}
+
 module.exports = {
   createTask,
   getAllTasksByUser,
   updateTask,
+  deleteTask,
 };
