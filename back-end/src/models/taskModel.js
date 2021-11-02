@@ -47,4 +47,5 @@ const updateTask = async (id, { title, description, status }) => {
 module.exports = {
   createTask,
   getAllTasksByUser,
+  updateTask,
 };
