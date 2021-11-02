@@ -24,6 +24,15 @@ const createTask = async (req,res,next) => {
   res.status(201).json(response);
 };
 
+const getAllTasksByUser = async (req, res, next) => {
+  const { userID } = req.user;
+
+  const response = await taskService.getAllTasksByUser(userID);
+
+  res.status(200).json(response);
+}
+
 module.exports = {
   createTask,
+  getAllTasksByUser,
 };
