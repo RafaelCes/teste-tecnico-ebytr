@@ -29,6 +29,16 @@ const getAllTasksByUser = async (userID) => {
   return tasks;
 };
 
+const GetTaskById = async(id) => {
+  const taskCollection = await mongoConnection.getConnection()
+  .then((db) => db.collection('users'));
+
+  const task = await taskCollection
+  .findOne({ _id: ObjectId(id) });
+
+  return task;
+}
+
 const updateTask = async (id, { title, description, status }) => {
   const taskCollection = await mongoConnection.getConnection()
   .then((db) => db.collection('users'));
