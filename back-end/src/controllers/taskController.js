@@ -51,4 +51,5 @@ const updateTask = async (req, res, next) => {
 module.exports = {
   createTask,
   getAllTasksByUser,
+  updateTask,
 };

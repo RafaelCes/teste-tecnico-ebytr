@@ -4,7 +4,7 @@ const checkPermission = async(id, userID) => {
   const task = await taskModel.getTaskById(id);
 
   if (!task) return 'task not found';
-  if (task.userId.toString() !== userID) {
+  if (task.userID.toString() !== userID) {
     return 'permission not granted';
   }
   return null;
