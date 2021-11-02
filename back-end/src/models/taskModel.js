@@ -29,7 +29,7 @@ const getAllTasksByUser = async (userID) => {
   return tasks;
 };
 
-const GetTaskById = async(id) => {
+const getTaskById = async(id) => {
   const taskCollection = await mongoConnection.getConnection()
   .then((db) => db.collection('users'));
 
@@ -57,5 +57,6 @@ const updateTask = async (id, { title, description, status }) => {
 module.exports = {
   createTask,
   getAllTasksByUser,
+  getTaskById,
   updateTask,
 };
