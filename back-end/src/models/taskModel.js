@@ -9,7 +9,7 @@ const createTask = async ({ title, description, status }, userID) => {
   const { insertedId } = await taskCollection
   .insertOne({ title, description, status, date: new Date(), userID: ObjectId(userID) });
   
-  return  {
+  return {
     title,
     description,
     status,
@@ -29,7 +29,7 @@ const getAllTasksByUser = async (userID) => {
   return tasks;
 };
 
-const getTaskById = async(id) => {
+const getTaskById = async (id) => {
   const taskCollection = await mongoConnection.getConnection()
   .then((db) => db.collection('users'));
 
@@ -37,21 +37,21 @@ const getTaskById = async(id) => {
   .findOne({ _id: ObjectId(id) });
 
   return task;
-}
+};
 
 const updateTask = async (id, { title, description, status }) => {
   const taskCollection = await mongoConnection.getConnection()
   .then((db) => db.collection('users'));
 
   await taskCollection
-  .updateOne({_id: ObjectId(id)},
-  { $set: { title, description, status}});
+  .updateOne({ _id: ObjectId(id) },
+  { $set: { title, description, status } });
 
   return {
     title,
     description,
     status,
-  }
+  };
 };
 
 const deleteTask = async (id) => {
@@ -59,10 +59,8 @@ const deleteTask = async (id) => {
   .then((db) => db.collection('users'));
 
   await taskCollection
-  .deleteOne({_id: ObjectId(id)});
-
-  return;
-}
+  .deleteOne({ _id: ObjectId(id) });
+};
 
 module.exports = {
   createTask,
