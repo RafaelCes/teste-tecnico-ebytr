@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoConnection = require('./connections');
 
 const createTask = async ({ title, description, status }, userID) => {
@@ -5,14 +7,14 @@ const createTask = async ({ title, description, status }, userID) => {
   .then((db) => db.collection('users'));
   
   const { insertedId } = await taskCollection
-  .insertOne({ title, description, status, date: new Date(), userID });
+  .insertOne({ title, description, status, date: new Date(), userID: ObjectId(userID) });
   
   return { user: {
     title,
     description,
     status,
     userID,
-    _id: insertedId,
+    id: ObjectId(userID),
     },
   };
 };

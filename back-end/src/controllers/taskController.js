@@ -4,7 +4,7 @@ const taskService = require('../services/taskService');
 
 const validateRequest = (body) => {
   const { error } = joi.object({
-    name: joi.string().max(40).required(),
+    title: joi.string().max(40).required(),
     description: joi.string().required(),
     status: joi.string().required(),
   }).validate(body);

@@ -4,6 +4,6 @@ const createTask = async (body, userID) => {
   return taskModel.createTask(body, userID);
 }
 
-module.export = {
+module.exports = {
   createTask,
 }

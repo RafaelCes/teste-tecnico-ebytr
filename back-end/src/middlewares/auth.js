@@ -12,8 +12,12 @@ const { JWT_SECRET } = process.env;
     const payload = jwt.verify(token, JWT_SECRET);
  
     req.user = payload;
+
     return next();
+
   } catch (err) {
+
     return next('jwt malformed');
+    
   }
  };
