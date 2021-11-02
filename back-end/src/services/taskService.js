@@ -24,8 +24,17 @@ const updateTask = async (id, body, userID) => {
 
 }
 
+const deleteTask = async (id, userID) => {
+  const permission = await checkPermission(id, userID);
+
+  if (permission) return permission;
+
+  return taskModel.deleteTask(id);
+}
+
 module.exports = {
   createTask,
   getAllTasksByUser,
   updateTask,
+  deleteTask,
 };
