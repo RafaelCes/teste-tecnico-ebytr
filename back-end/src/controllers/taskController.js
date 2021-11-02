@@ -32,6 +32,22 @@ const getAllTasksByUser = async (req, res) => {
   res.status(200).json(response);
 };
 
+const updateTask = async (req, res, next) => {
+  const { id } = req.params;
+  const { userID } = req.user;
+  const { body } = req;
+
+  const error = validateRequest(body);
+
+  if (error) return next('Invalid entries. Try again.');
+
+  const response = await taskService.updateTask(id, body, userID);
+
+  if(typeof response === 'string') return next(response)
+
+  res.status(200).json(response);
+};
+
 module.exports = {
   createTask,
   getAllTasksByUser,
