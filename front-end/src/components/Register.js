@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const [name, setName] = useState('');
 
-  const requestLogin = async () => fetch('http://localhost:3001/login', {
+  const requestUser = async () => fetch('http://localhost:3001/users', {
     method: 'POST',
     headers: {
       'content-Type': 'application/json',
     },
     body: JSON.stringify({
+      name,
       email,
       password,
     }),
   })
     .then((data) => data.json());
 
-  const loginUser = async (e) => {
+  const registerUser = async (e) => {
     e.preventDefault();
-
-    const response = await requestLogin();
-
+    const response = await requestUser();
     if (response.message) return alert(response.message);
-    localStorage.setItem('token', response.token);
-    
-    history.push('/tasks');
+    alert('cadastro realizado com sucesso');
+    window.location.reload();
   };
 
   return (
     <div>
-      <h3>Login</h3>
-      <form onSubmit={ loginUser }>
+      <h3>Cadastro</h3>
+      <form onSubmit={ registerUser }>
+        <input placeholder="name" onChange={ (e) => setName(e.target.value) } />
+        <br />
         <input placeholder="email" onChange={ (e) => setEmail(e.target.value) } />
         <br />
         <input
@@ -41,7 +40,7 @@ export default function Login() {
           onChange={ (e) => setPassword(e.target.value) }
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">Cadastrar</button>
       </form>
     </div>
   );
