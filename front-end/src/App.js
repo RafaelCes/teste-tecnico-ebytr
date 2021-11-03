@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Login from './components/Login';
 import './App.css';
+import loginPage from './pages/loginPage';
 
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login } />
+      <Route exact path="/" component={ loginPage } />
     </Switch>
   );
 }
