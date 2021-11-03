@@ -11,6 +11,7 @@ const validateRequest = (body) => {
 };
 
 const userLogin = async (req, res, next) => {
+ try {
   const { body } = req;
   
   const error = validateRequest(body);
@@ -22,6 +23,9 @@ const userLogin = async (req, res, next) => {
   if (!token) return next('Incorrect username or password');
 
   res.status(200).json({ token });
+ } catch (error) {
+   res.status(500).json({message: 'internal server error'})
+ }
 };
 
 module.exports = { 

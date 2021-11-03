@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
 
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const requestLogin = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
-    fetch('http://localhost:3001/login', {
+    const response = await requestLogin();
+    if(response.message) return alert(response.message);
+    localStorage.setItem('token', response.token);
+  }
+
+  const requestLogin = async () => {
+    return await fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
         'content-Type': 'application/json',
       },
-      body: JSON.Stringfy({
+      body: JSON.stringify({
         email,
         password,
       }),
-    });
+    })
+    .then((data) => data.json());
+    
   };
 
   return (
     <div>
       <h3>Login</h3>
-      <form onSubmit={ requestLogin }>
+      <form onSubmit={ loginUser }>
         <input placeholder="email" onChange={ (e) => setEmail(e.target.value) } />
         <br />
         <input
@@ -30,9 +39,8 @@ export default function Login() {
           onChange={ (e) => setPassword(e.target.value) }
         />
         <br />
-        <button type="button">Login</button>
+        <button type="submit">Login</button>
       </form>
-      <button type="button">cadastrar-se</button>
     </div>
   );
 }
