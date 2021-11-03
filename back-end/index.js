@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const userRoute = require('./src/routes/userRoute');
 const loginRoute = require('./src/routes/loginRoute');
@@ -7,6 +8,7 @@ const error = require('./src/middlewares/error');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 const PORT = 3001;
