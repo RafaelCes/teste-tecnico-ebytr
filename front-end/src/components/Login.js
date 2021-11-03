@@ -1,30 +1,26 @@
 import React, { useState } from 'react';
 
-
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const requestLogin = async () => fetch('http://localhost:3001/login', {
+    method: 'POST',
+    headers: {
+      'content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  })
+    .then((data) => data.json());
+
   const loginUser = async (e) => {
     e.preventDefault();
     const response = await requestLogin();
-    if(response.message) return alert(response.message);
+    if (response.message) return alert(response.message);
     localStorage.setItem('token', response.token);
-  }
-
-  const requestLogin = async () => {
-    return await fetch('http://localhost:3001/login', {
-      method: 'POST',
-      headers: {
-        'content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-    .then((data) => data.json());
-    
   };
 
   return (
