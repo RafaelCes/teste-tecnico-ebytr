@@ -2,11 +2,12 @@
   "name": "ebytr-todo-list",
   "version": "1.0.0",
   "description": "lista de tarefas para teste tecnico da ebytr",
-  "main": "index.js",
+  "main": "/src/server.js",
   "scripts": {
+    "start": "node .",
     "test": "mocha ./tests/**/*$NAME*.test.js --exit",
     "lint": "eslint --no-inline-config --ext .js,.jsx --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "dev": "nodemon index.js"
+    "dev": "nodemon ."
   },
   "author": "Rafael Cavalcante",
   "license": "ISC",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "eslint-config-trybe-backend": "^1.0.4",
     "mocha": "^9.1.3",
     "sinon": "^12.0.0"
