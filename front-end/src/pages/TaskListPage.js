@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react';
+import TaskForm from '../components/TaskForm';
+import TaskList from '../components/TaskList';
+
+export const loadingContext = React.createContext();
 
 export default function TaskListPage() {
+  const [isAdding, setIsAdding] = useState('false')
+  const [loading, setLoading] = useState(true);
+
   return (
     <div>
-      tasks
+      <loadingContext.Provider value={[loading, setLoading]} >
+      {loading? 'loading' : ''}
+      <TaskList /> 
+      {isAdding ? '' : <TaskForm />}
+      <button type="button" onClick={() => setIsAdding(!isAdding)}>
+        Nova Tarefa
+        </button>
+      </loadingContext.Provider>
     </div>
-  )
+  );
 }
