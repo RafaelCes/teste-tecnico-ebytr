@@ -12,7 +12,8 @@ const validateRequest = (body) => {
 };
 
 const createUser = async (req, res, next) => {
-  const { body } = req;
+  try {
+    const { body } = req;
   const error = validateRequest(body);
   
   if (error) return next('Invalid entries. Try again.');
@@ -22,7 +23,10 @@ const createUser = async (req, res, next) => {
   if (typeof response === 'string') return next(response);
   
   res.status(201).json(response);
-};
+} catch (error) {
+  res.status(500).json({ message: 'internal server error' });
+}
+  };
 
 module.exports = {
   createUser,

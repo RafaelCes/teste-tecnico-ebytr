@@ -4,7 +4,7 @@ const mongoConnection = require('./connections');
 
 const createTask = async ({ title, description, status }, userID) => {
   const taskCollection = await mongoConnection.getConnection()
-  .then((db) => db.collection('users'));
+  .then((db) => db.collection('tasks'));
   
   const { insertedId } = await taskCollection
   .insertOne({ title, description, status, date: new Date(), userID: ObjectId(userID) });
@@ -20,7 +20,7 @@ const createTask = async ({ title, description, status }, userID) => {
 
 const getAllTasksByUser = async (userID) => {
   const taskCollection = await mongoConnection.getConnection()
-  .then((db) => db.collection('users'));
+  .then((db) => db.collection('tasks'));
 
   const tasks = await taskCollection
   .find({ userID: ObjectId(userID) })
@@ -31,7 +31,7 @@ const getAllTasksByUser = async (userID) => {
 
 const getTaskById = async (id) => {
   const taskCollection = await mongoConnection.getConnection()
-  .then((db) => db.collection('users'));
+  .then((db) => db.collection('tasks'));
 
   const task = await taskCollection
   .findOne({ _id: ObjectId(id) });
@@ -41,7 +41,7 @@ const getTaskById = async (id) => {
 
 const updateTask = async (id, { title, description, status }) => {
   const taskCollection = await mongoConnection.getConnection()
-  .then((db) => db.collection('users'));
+  .then((db) => db.collection('tasks'));
 
   await taskCollection
   .updateOne({ _id: ObjectId(id) },
@@ -56,7 +56,7 @@ const updateTask = async (id, { title, description, status }) => {
 
 const deleteTask = async (id) => {
   const taskCollection = await mongoConnection.getConnection()
-  .then((db) => db.collection('users'));
+  .then((db) => db.collection('tasks'));
 
   await taskCollection
   .deleteOne({ _id: ObjectId(id) });
