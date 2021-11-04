@@ -6,7 +6,7 @@ export default function TaskForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('pendente');
-  const [, setLoading] = useContext(loadingContext);
+  const { setLoading } = useContext(loadingContext);
 
   const addNewTask = async (e) => {
     e.preventDefault();

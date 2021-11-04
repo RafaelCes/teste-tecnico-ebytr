@@ -6,7 +6,7 @@ export default function UpdateTask(props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('pendente');
-  const [, setLoading] = useContext(loadingContext);
+  const { setLoading } = useContext(loadingContext);
   const { id } = props;
   const updateTask = async (e, id) => {
     e.preventDefault();

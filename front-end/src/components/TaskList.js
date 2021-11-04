@@ -5,7 +5,8 @@ import UpdateTask from './UpdateTask';
 export default function TaskList() {
   const [taskList, setTaskList] = useState([]);
   const [isEditing, setIsEditing] = useState(-1);
-  const [loading, setLoading] = useContext(loadingContext);
+  const [sortedList, setSortedList] = useState([]);
+  const { loading, setLoading, order } = useContext(loadingContext);
 
   const fetchTasks = async() => fetch('http://localhost:3001/tasks', {
     method: 'GET',
@@ -24,7 +25,7 @@ export default function TaskList() {
     getData();
     setLoading(false);
     setIsEditing(-1);
-  }, [loading]);
+  }, [order, loading]);
 
   const deleteTask = async(id) => { await fetch(`http://localhost:3001/tasks/${id}`, {
     method: 'DELETE',
@@ -36,9 +37,29 @@ export default function TaskList() {
     setLoading(true);
     }
 
+    const orderList = () => {
+      if (order === 'alfabetica'){
+        return setSortedList(taskList
+          .sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)));
+    }
+    if ( order === 'status') {
+      return setSortedList(taskList
+        .sort((a,b) => (a.status > b.status) ? 1 : ((b.status > a.status) ? -1 : 0)));
+    }
+      if(order === 'data'){
+        return setSortedList(taskList
+          .sort((a,b) => (a.title > b.date) ? 1 : ((b.title > a.date) ? -1 : 0)));
+      }
+    }
+
+    useEffect(() => {
+      orderList();
+      setLoading(true);
+    },[order]);
   return (
     <ul style={{ listStyleType: "none" }}>
-      {taskList.map((task, index) => {
+      {/* {console.log(sortedList)} */}
+      {sortedList.map((task, index) => {
         return (<li key ={task._id} >
           { isEditing === index ?
           <UpdateTask id={task._id} />
