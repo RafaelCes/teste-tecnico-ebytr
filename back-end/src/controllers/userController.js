@@ -22,7 +22,7 @@ const createUser = async (req, res, next) => {
 
   if (typeof response === 'string') return next(response);
   
-  res.status(201).json(response);
+  res.status(201).json({ message: 'Novo usuário criado com sucesso' });
 } catch (error) {
   res.status(500).json({ message: 'internal server error' });
 }
