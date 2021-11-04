@@ -25,7 +25,7 @@ export default function Login() {
 
     if (response.message) return alert(response.message);
     localStorage.setItem('token', response.token);
-    
+
     history.push('/tasks');
   };
 
