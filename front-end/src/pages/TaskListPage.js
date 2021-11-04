@@ -10,17 +10,17 @@ export default function TaskListPage() {
   const [order, setOrder] = useState('data');
 
   useEffect(() => {
-    setIsAdding(false)
-  }, [loading])
+    setIsAdding(false);
+  }, [loading]);
 
   return (
     <div>
-      <loadingContext.Provider value={{loading, setLoading, order}} >
-      {loading? 'loading' : ''}
-      <TaskList /> 
-      {!isAdding ? '' : <TaskForm />}
-      <button type="button" onClick={() => setIsAdding(!isAdding)}>
-        Nova Tarefa
+      <loadingContext.Provider value={ { loading, setLoading, order } }>
+        {loading ? 'loading' : ''}
+        <TaskList />
+        {!isAdding ? '' : <TaskForm />}
+        <button type="button" onClick={ () => setIsAdding(!isAdding) }>
+          Nova Tarefa
         </button>
         <select id="order" onChange={ (e) => setOrder(e.target.value) }>
           <option value="data">Data de criação</option>

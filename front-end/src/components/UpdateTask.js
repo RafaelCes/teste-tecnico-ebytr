@@ -27,7 +27,7 @@ export default function UpdateTask(props) {
 
   return (
     <div>
-      <form onSubmit={ (e) => updateTask(e,id) }>
+      <form onSubmit={ (e) => updateTask(e, id) }>
         <input placeholder="título" onChange={ (e) => setTitle(e.target.value) } />
         <br />
         <textarea
