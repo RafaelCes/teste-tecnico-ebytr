@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-import TaskForm from './TaskForm';
-
 import { loadingContext } from '../pages/TaskListPage';
+import UpdateTask from './UpdateTask';
 
 export default function TaskList() {
   const [taskList, setTaskList] = useState([]);
@@ -24,6 +23,7 @@ export default function TaskList() {
     };
     getData();
     setLoading(false);
+    setIsEditing(-1);
   }, [loading]);
 
   const deleteTask = async(id) => { await fetch(`http://localhost:3001/tasks/${id}`, {
@@ -38,11 +38,10 @@ export default function TaskList() {
 
   return (
     <ul style={{ listStyleType: "none" }}>
-      {console.log(taskList)}
       {taskList.map((task, index) => {
         return (<li key ={task._id} >
           { isEditing === index ?
-          <TaskForm />
+          <UpdateTask id={task._id} />
           :<div>
           <h3>{task.title}</h3>
           <p>{task.description}</p>

@@ -2,16 +2,16 @@ import React, { useState, useContext } from 'react';
 
 import { loadingContext } from '../pages/TaskListPage';
 
-export default function TaskForm() {
+export default function UpdateTask(props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('pendente');
   const [, setLoading] = useContext(loadingContext);
-
-  const addNewTask = async (e) => {
+  const { id } = props;
+  const updateTask = async (e, id) => {
     e.preventDefault();
-    fetch('http://localhost:3001/tasks', {
-      method: 'POST',
+    fetch(`http://localhost:3001/tasks/${id}`, {
+      method: 'PUT',
       headers: {
         'content-Type': 'application/json',
         authorization: localStorage.getItem('token'),
@@ -27,7 +27,7 @@ export default function TaskForm() {
 
   return (
     <div>
-      <form onSubmit={ addNewTask }>
+      <form onSubmit={ (e) => updateTask(e,id) }>
         <input placeholder="título" onChange={ (e) => setTitle(e.target.value) } />
         <br />
         <textarea
@@ -42,7 +42,7 @@ export default function TaskForm() {
           <option value="em andamento">Em andamento</option>
           <option value="terminada">Terminada</option>
         </select>
-        <button type="submit">Adicionar</button>
+        <button type="submit">Atualizar</button>
       </form>
     </div>
   );
