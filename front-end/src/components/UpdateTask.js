@@ -1,14 +1,18 @@
 import React, { useState, useContext } from 'react';
 
-import { loadingContext } from '../pages/TaskListPage';
+import { todoContext } from '../pages/TaskListPage';
 
 export default function UpdateTask(props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('pendente');
-  const { setLoading } = useContext(loadingContext);
-  const { id } = props;
-  const updateTask = async (e, id) => {
+  const { fetchTasks } = useContext(todoContext);
+  const { id, setIsEditing } = props;
+
+  const NEG = -1;
+
+  // faz uma requisição na API para atualizar uma tarefa
+  const updateTask = async (e) => {
     e.preventDefault();
     fetch(`http://localhost:3001/tasks/${id}`, {
       method: 'PUT',
@@ -22,12 +26,13 @@ export default function UpdateTask(props) {
         status,
       }),
     });
-    setLoading(true);
+    setIsEditing(NEG);
+    fetchTasks();
   };
 
   return (
     <div>
-      <form onSubmit={ (e) => updateTask(e, id) }>
+      <form onSubmit={ (e) => updateTask(e) }>
         <input placeholder="título" onChange={ (e) => setTitle(e.target.value) } />
         <br />
         <textarea
@@ -35,13 +40,14 @@ export default function UpdateTask(props) {
           onChange={ (e) => setDescription(e.target.value) }
         />
         <br />
-        <label htmlFor="status">Status:</label>
-
-        <select id="status" onChange={ (e) => setStatus(e.target.value) }>
-          <option value="pendente">Pendente</option>
-          <option value="em andamento">Em andamento</option>
-          <option value="terminada">Terminada</option>
-        </select>
+        <label htmlFor="status">
+          Status:
+          <select id="status" onChange={ (e) => setStatus(e.target.value) }>
+            <option value="pendente">Pendente</option>
+            <option value="em andamento">Em andamento</option>
+            <option value="terminada">Terminada</option>
+          </select>
+        </label>
         <button type="submit">Atualizar</button>
       </form>
     </div>

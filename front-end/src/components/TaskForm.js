@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 
-import { loadingContext } from '../pages/TaskListPage';
+import { todoContext } from '../pages/TaskListPage';
 
 export default function TaskForm() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('pendente');
-  const { setLoading } = useContext(loadingContext);
+  const { fetchTasks } = useContext(todoContext);
 
+  // faz a requisição para API adicionar uma nova tarefa
   const addNewTask = async (e) => {
     e.preventDefault();
     fetch('http://localhost:3001/tasks', {
@@ -22,7 +23,7 @@ export default function TaskForm() {
         status,
       }),
     });
-    setLoading(true);
+    fetchTasks();
   };
 
   return (
@@ -35,13 +36,14 @@ export default function TaskForm() {
           onChange={ (e) => setDescription(e.target.value) }
         />
         <br />
-        <label htmlFor="status">Status:</label>
-
-        <select id="status" onChange={ (e) => setStatus(e.target.value) }>
-          <option value="pendente">Pendente</option>
-          <option value="em andamento">Em andamento</option>
-          <option value="terminada">Terminada</option>
-        </select>
+        <label htmlFor="status">
+          Status:
+          <select id="status" onChange={ (e) => setStatus(e.target.value) }>
+            <option value="pendente">Pendente</option>
+            <option value="em andamento">Em andamento</option>
+            <option value="terminada">Terminada</option>
+          </select>
+        </label>
         <button type="submit">Adicionar</button>
       </form>
     </div>
