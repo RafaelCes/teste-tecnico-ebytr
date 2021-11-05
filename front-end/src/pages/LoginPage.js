@@ -4,6 +4,7 @@ import Register from '../components/Register';
 
 export default function LoginPage() {
   const [register, setRegister] = useState('false');
+  
   return (
     <div>
       <h1> bem vindo!</h1>
