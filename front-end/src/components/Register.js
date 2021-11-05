@@ -5,6 +5,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
+  // faz a requisição para API criar um novo usuario
   const requestUser = async () => fetch('http://localhost:3001/users', {
     method: 'POST',
     headers: {

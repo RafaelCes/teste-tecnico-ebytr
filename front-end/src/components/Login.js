@@ -6,6 +6,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
+  // faz uma requisição para receber um token da API
   const requestLogin = async () => fetch('http://localhost:3001/login', {
     method: 'POST',
     headers: {
@@ -18,6 +19,7 @@ export default function Login() {
   })
     .then((data) => data.json());
 
+  // guarda o token do usuario no localstorage e o redireciona
   const loginUser = async (e) => {
     e.preventDefault();
 
